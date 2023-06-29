@@ -36,4 +36,21 @@ export class AudioController {
       pause: () => console.log("pause"),
     };
   }
+
+  private updateAudioData = (currentAudioData: Partial<AudioData>) => {
+    const prevData = this.snapshot.data;
+    this.snapshot = {
+      ...this.snapshot,
+      data: { ...prevData, ...currentAudioData },
+    };
+    this.emitChange();
+  };
+
+  public getSnapshot = () => {
+    return this.snapshot;
+  };
+
+  private emitChange = () => {
+    this.listeners.forEach((listener) => listener());
+  };
 }
