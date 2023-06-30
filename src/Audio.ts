@@ -50,6 +50,40 @@ export class AudioController {
     this.emitChange();
   };
 
+  public subscribe = (listener: () => void, audio: string) => {
+    this.listeners.add(listener);
+    this.updateAudioData({ name: audio });
+
+    fetch(audio)
+      .then((response) => response.arrayBuffer())
+      .then((arrayBuffer) => this.audioContext.decodeAudioData(arrayBuffer))
+      .then((audioBuffer) => (this.audioBuffer = audioBuffer))
+      .then(this.emitChange)
+      .catch((e) => console.error(e.message));
+
+    return () => {
+      this.listeners.delete(listener);
+      this.audioBufferSourceNode.disconnect();
+
+      if (this.audioContext.state !== "closed") {
+        this.audioContext.close();
+      }
+
+      this.audioContext = new AudioContext();
+      this.audioBufferSourceNode = this.audioContext.createBufferSource();
+      this.audioBuffer = null;
+
+      this.updateAudioData({
+        name: "",
+        isPause: false,
+        isPlaying: false,
+        audioBufferSourceNode: this.audioBufferSourceNode,
+      });
+
+      this.audioBufferSourceNode.removeEventListener("ended", this.resetAudio);
+    };
+  };
+
   public getSnapshot = () => {
     return this.snapshot;
   };
