@@ -37,6 +37,10 @@ export class AudioController {
     };
   }
 
+  private resetAudio = () => {
+    this.updateAudioData({ isPlaying: false, isPause: false });
+  };
+
   private updateAudioData = (currentAudioData: Partial<AudioData>) => {
     const prevData = this.snapshot.data;
     this.snapshot = {
