@@ -64,6 +64,64 @@ export class AudioController {
     this.audioBufferSourceNode.addEventListener("ended", this.resetAudio);
   };
 
+  private play = () => {
+    /**
+     * When play is executed, it creates a new source Node,
+     * so it deletes the events registered to the existing source.
+     *
+     * However, it will not delete them if they are currently paused.
+     * This is because it utilizes the existing source Node when it is paused.
+     * (Note: Suspended state logic)
+     */
+    if (
+      this.audioContext.state !== "suspended" &&
+      !this.snapshot.data.isPause
+    ) {
+      this.audioBufferSourceNode.removeEventListener("ended", this.resetAudio);
+    }
+
+    switch (this.audioContext.state) {
+      case "closed": {
+        this.audioContext = new AudioContext();
+        this.playAudio();
+        this.updateAudioData({
+          isPause: false,
+          isPlaying: true,
+          audioBufferSourceNode: this.audioBufferSourceNode,
+        });
+        break;
+      }
+      case "suspended": {
+        this.audioContext.resume();
+
+        if (this.snapshot.data.isPause) {
+          this.updateAudioData({
+            isPause: false,
+            isPlaying: true,
+            audioBufferSourceNode: this.audioBufferSourceNode,
+          });
+        } else {
+          this.playAudio();
+          this.updateAudioData({
+            isPause: false,
+            isPlaying: true,
+            audioBufferSourceNode: this.audioBufferSourceNode,
+          });
+        }
+        break;
+      }
+      case "running": {
+        this.playAudio();
+        this.updateAudioData({
+          isPause: false,
+          isPlaying: true,
+          audioBufferSourceNode: this.audioBufferSourceNode,
+        });
+        break;
+      }
+    }
+  };
+
   public subscribe = (listener: () => void, audio: string) => {
     this.listeners.add(listener);
     this.updateAudioData({ name: audio });
