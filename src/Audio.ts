@@ -37,10 +37,6 @@ export class AudioController {
     };
   }
 
-  private resetAudio = () => {
-    this.updateAudioData({ isPlaying: false, isPause: false });
-  };
-
   private updateAudioData = (currentAudioData: Partial<AudioData>) => {
     const prevData = this.snapshot.data;
     this.snapshot = {
@@ -48,6 +44,24 @@ export class AudioController {
       data: { ...prevData, ...currentAudioData },
     };
     this.emitChange();
+  };
+
+  private resetAudio = () => {
+    this.updateAudioData({ isPlaying: false, isPause: false });
+  };
+
+  private playAudio = () => {
+    /**
+     * For an AudioBufferSourceNode, you can only play it the first time.
+     * This forces you to create a source Node using createBufferSource each time you want to play it.
+     * https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode
+     */
+    const audioBufferSourceNode = this.audioContext.createBufferSource();
+    audioBufferSourceNode.buffer = this.audioBuffer;
+    audioBufferSourceNode.connect(this.audioContext.destination);
+    audioBufferSourceNode.start();
+    this.audioBufferSourceNode = audioBufferSourceNode;
+    this.audioBufferSourceNode.addEventListener("ended", this.resetAudio);
   };
 
   public subscribe = (listener: () => void, audio: string) => {
