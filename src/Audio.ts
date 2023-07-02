@@ -122,6 +122,30 @@ export class AudioController {
     }
   };
 
+  private stop = () => {
+    if (this.audioContext.state === "running" && this.snapshot.data.isPlaying) {
+      this.audioBufferSourceNode.stop();
+    }
+
+    if (this.audioContext.state !== "closed") {
+      this.audioContext.close();
+    }
+
+    this.audioBufferSourceNode.disconnect();
+    this.updateAudioData({ isPause: false, isPlaying: false });
+  };
+
+  private pause = () => {
+    if (this.audioContext.state === "running" && this.snapshot.data.isPlaying) {
+      this.audioContext.suspend();
+    }
+
+    this.updateAudioData({
+      isPlaying: false,
+      isPause: true,
+    });
+  };
+
   public subscribe = (listener: () => void, audio: string) => {
     this.listeners.add(listener);
     this.updateAudioData({ name: audio });
