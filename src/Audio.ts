@@ -32,8 +32,8 @@ export class AudioController {
         audioBufferSourceNode: this.audioBufferSourceNode,
       },
       play: this.play,
-      stop: () => console.log("stop"),
-      pause: () => console.log("pause"),
+      stop: this.stop,
+      pause: this.pause,
     };
   }
 
