@@ -1,4 +1,4 @@
-# react-sound-player
+# react-use-audio
 
 ### A React Hook for Easily Handle Sound
 
@@ -13,13 +13,13 @@ You can easily play, pause, and stop sounds with React Hooks.
 using **yarn**
 
 ```bash
-yarn add react-sound-player
+yarn add react-use-audio
 ```
 
 using **NPM**
 
 ```bash
-npm install react-sound-player
+npm install react-use-audio
 ```
 
 ## Usage
@@ -27,7 +27,7 @@ npm install react-sound-player
 ### Play sound with onClick Event
 
 ```tsx
-import { useAudio } from "react-sound-player";
+import { useAudio } from "react-use-audio";
 
 // You need to add sound-related files
 import testSound from "../sounds/test.mp3";
@@ -44,7 +44,7 @@ export default App;
 ### Play, Pause, Stop sound with onClick Event
 
 ```tsx
-import { useAudio } from "react-sound-player";
+import { useAudio } from "react-use-audio";
 
 // You need to add sound-related files
 import testSound from "../sounds/test.mp3";
@@ -67,7 +67,7 @@ export default App;
 ### Check if the sound is paused or playing
 
 ```tsx
-import { useAudio } from "react-sound-player";
+import { useAudio } from "react-use-audio";
 
 // You need to add sound-related files
 import testSound from "../sounds/test.mp3";
