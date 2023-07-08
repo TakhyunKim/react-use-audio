@@ -4,6 +4,8 @@
   "version": "0.1.0",
   "private": false,
   "description": "Easily handle sound in React using the Audio Web API",
+  "repository": "github:TakhyunKim/react-use-audio",
+  "homepage": "https://github.com/TakhyunKim/react-use-audio#react-use-audio",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
