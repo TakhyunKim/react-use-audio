@@ -1,7 +1,7 @@
 {
   "name": "react-use-audio",
   "author": "Takhyun Kim",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "description": "Easily handle sound in React using the Audio Web API",
   "repository": "github:TakhyunKim/react-use-audio",
