@@ -150,7 +150,7 @@ describe("Audio Test", () => {
 
           // Assert
           expect(data).toEqual(expectedData);
-          expect(mockListener.mock.calls).toHaveLength(1);
+          expect(mockListener.mock.calls).toHaveLength(2);
         });
 
         test("should return isPlaying is true when AudioContext state is closed", () => {
