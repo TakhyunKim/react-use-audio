@@ -85,6 +85,7 @@ describe("Audio Test", () => {
 
           // Assert
           expect(data).toEqual(expectedData);
+          expect(mockListener.mock.calls).toHaveLength(1);
         });
 
         test("should return initial audio data after subscribe method return method", () => {
@@ -116,6 +117,7 @@ describe("Audio Test", () => {
 
           // Assert - subscribe
           expect(subscribeData).toEqual(expectedDataWithSubscribe);
+          expect(mockListener.mock.calls).toHaveLength(1);
 
           // Act - unsubscribe
           subscribeCallback();
@@ -179,6 +181,7 @@ describe("Audio Test", () => {
 
           // Assert
           expect(data).toEqual(expectedData);
+          expect(mockListener.mock.calls).toHaveLength(2);
         });
 
         test("should return isPlaying is true when AudioContext state is running", () => {
@@ -207,6 +210,7 @@ describe("Audio Test", () => {
 
           // Assert
           expect(data).toEqual(expectedData);
+          expect(mockListener.mock.calls).toHaveLength(2);
         });
       });
 
@@ -247,6 +251,7 @@ describe("Audio Test", () => {
 
           // Assert - stop
           expect(stopData).toEqual(expectedDataWithStop);
+          expect(mockListener.mock.calls).toHaveLength(3);
         });
 
         test("should return isPlaying false and call stop method when state is running and stop method called", () => {
@@ -326,6 +331,7 @@ describe("Audio Test", () => {
 
           // Assert - pause
           expect(pauseData).toEqual(expectedDataWithPause);
+          expect(mockListener.mock.calls).toHaveLength(3);
         });
 
         test("should return isPause is true and suspend method call when state is running and pause called", () => {
