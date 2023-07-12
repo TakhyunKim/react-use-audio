@@ -1,0 +1,14 @@
+name: "test CI"
+on: pull_request
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Test project
+        run: yarn test
