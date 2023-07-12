@@ -1,6 +1,9 @@
 node_modules/
 src/
 public/
+babel.config.json
+jest.config.mjs
+jest.setup.js
 tsconfig.json
 tsconfig.node.json
 vite.config.ts
