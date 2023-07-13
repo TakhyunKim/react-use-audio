@@ -1,7 +1,7 @@
 node_modules/
 src/
 public/
-babel.config.json
+babel.config.js
 jest.config.mjs
 jest.setup.js
 tsconfig.json
@@ -9,3 +9,5 @@ tsconfig.node.json
 vite.config.ts
 .eslintrc.cjs
 .github
+coverage/
+yarn-error.log
