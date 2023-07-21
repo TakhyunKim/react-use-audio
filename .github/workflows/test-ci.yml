@@ -1,5 +1,9 @@
 name: "test CI"
-on: pull_request
+on:
+  pull_request_target:
+    branches:
+      - master
+      - main
 
 jobs:
   coverage:
