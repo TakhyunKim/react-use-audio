@@ -1,5 +1,8 @@
 name: "test CI"
-on: pull_request
+on:
+  pull_request_target:
+    branches:
+      - main
 
 jobs:
   coverage:
@@ -10,5 +13,13 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Test project
-        run: yarn test
+      - uses: ArtiomTr/jest-coverage-report-action@v2
+        id: coverage
+        with:
+          package-manager: yarn
+          test-script: yarn test
+          output: report-markdown
+
+      - uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          message: ${{ steps.coverage.outputs.report }}
